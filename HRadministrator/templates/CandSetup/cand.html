@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .navigation ul li.cand {
+        transform: translateX(30px);
+        background: var(--bg);
+    }
+    
+    .navigation ul li.cand::before{
+        content: '';
+        position: absolute;
+        top: -28px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-bottom-right-radius: 20px;
+        box-shadow: 6px 5px 0 5px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.cand::after{
+        content: '';
+        position: absolute;
+        bottom: -23px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-top-right-radius: 20px;
+        box-shadow: 6px -3px 0 3px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.cand a .icon img{
+        color: #fff;
+        background: var(--cir);
+    }
+    
+    .navigation ul li.cand a .icon img::before{
+        opacity: 0.5;
+    }
+    
+    .navigation ul li.cand a .text{
+        color: #fff;
+    }
+</style>
+<a href="/HRadministrator/create-candidate" class="add"><img src="/media/icons/create.png" alt=""></a>
+<table id="view_page" style="--cir:#fa8c31;">
+    <tr class="table-dark">
+        <th>Candidate ID</th>
+        <th>Candidate Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+    </tr>
+    {% for cand in cands %} 
+    <tr>
+        <td>{{cand.cand_id}}</td>
+        <td>{{cand.first_name}} {{cand.last_name}}</td>
+        <td>{{cand.email}}</td>
+        <td>{{cand.mobile}}</td>
+    </tr>
+    {% endfor %} 
+
+
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <div class="msg-popup" id="popup">
+                    <div class="msg">
+                        <img src="/media/icons/success.png" alt="Success">
+                        <h2>Success</h2>
+                        <p>{{message}}</p>
+                        <button type="button" onclick="closePopup()">close</button>
+                    </div>
+                </div>
+            {% endif %}
+            {% if message.tags == 'info' %}
+                <div class="msg-popup" id="popup">
+                    <div class="msg">
+                        <img src="/media/icons/delete.png" alt="Success">
+                        <h2>Delete</h2>
+                        <p>{{message}}</p>
+                        <button type="button" onclick="closePopup()">close</button>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+<script>
+    let popup = document.getElementById("popup");
+
+    function closePopup() {
+        popup.classList.add("close")
+    }
+</script>
+
+
+{% endblock content %}

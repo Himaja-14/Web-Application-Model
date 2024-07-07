@@ -1,0 +1,22 @@
+{% extends "home.html" %}
+{% block content %}
+
+
+<div class="profile">
+    <div class="container">
+        <div class="card">
+                <div class="box">
+                    <div class="content">
+                        <h3>My Profile</h3>
+                        <p>ID: {{user.username}}</p> 
+                        <p>Name: {{user.first_name}}</p> 
+                        <p>Email: {{user.email}}</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+

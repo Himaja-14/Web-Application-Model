@@ -1,0 +1,31 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Candidate Homepage</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    
+    <header>
+        <span><img class="logo" src="/media/images/Photo.png" alt="#"> <a href="/candidate/homepage">{{user.first_name}} {{user.last_name}}</a></span>
+        <nav>
+            <ul>
+              <li><a href="/candidate/profile">Profile</a></li>
+                <li><a href="/candidate/dashboard">Dashboard</a></li>
+                <li><a href="#">Open Positions</a></li>
+            </ul>
+        </nav>
+        <a href="/HRadministrator/logout-user"><button>Logout</button></a>
+    </header>
+    <hr style="color: white;">
+    <section class="cand-sec">
+    {% block content %}
+    
+    
+    {% endblock content %}
+  </section>
+  </body>
+</html>

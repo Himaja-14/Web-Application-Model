@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .navigation ul li.req {
+        transform: translateX(30px);
+        background: var(--bg);
+    }
+    
+    .navigation ul li.req::before{
+        content: '';
+        position: absolute;
+        top: -28px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-bottom-right-radius: 20px;
+        box-shadow: 6px 5px 0 5px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.req::after{
+        content: '';
+        position: absolute;
+        bottom: -23px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-top-right-radius: 20px;
+        box-shadow: 6px -3px 0 3px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.req a .icon img{
+        color: #fff;
+        background: var(--cir);
+    }
+    
+    .navigation ul li.req a .icon img::before{
+        opacity: 0.5;
+    }
+    
+    .navigation ul li.req a .text{
+        color: #fff;
+    }
+</style>
+<form action="#" method="post" enctype='multipart/form-data'>
+    {% csrf_token %}
+    <p style="color: #fff;">Assigining candidate to the requisition ID {{requis.id}}</p>
+    <div class="row-1">
+        <div class="inputbox">
+            <select name="cand" id="post" class="form-select" required>
+                <option value=""></option>
+                {% for cand in cands %}
+                <option value="{{cand.id}}">{{cand.first_name}} {{cand.last_name}}</option>
+                {% endfor %}
+              </select>
+            <label for="" class="text">Candidate</label>
+        </div>
+      
+        <div class="sub_btn">
+            <button type="submit">Save</button>
+            <a href="/HRadministrator/requisition"><button type="button">cancel</button></a>
+        </div>
+    </div>
+
+</form>
+
+{% endblock content %}

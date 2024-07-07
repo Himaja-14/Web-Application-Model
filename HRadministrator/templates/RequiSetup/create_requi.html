@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .navigation ul li.req {
+        transform: translateX(30px);
+        background: var(--bg);
+    }
+    
+    .navigation ul li.req::before{
+        content: '';
+        position: absolute;
+        top: -28px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-bottom-right-radius: 20px;
+        box-shadow: 6px 5px 0 5px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.req::after{
+        content: '';
+        position: absolute;
+        bottom: -23px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-top-right-radius: 20px;
+        box-shadow: 6px -3px 0 3px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.req a .icon img{
+        color: #fff;
+        background: var(--cir);
+    }
+    
+    .navigation ul li.req a .icon img::before{
+        opacity: 0.5;
+    }
+    
+    .navigation ul li.req a .text{
+        color: #fff;
+    }
+</style>
+<form action="#" method="post" enctype='multipart/form-data'>
+    {% csrf_token %}
+    <div class="row-1">
+        <div class="col-1">
+            <div class="inputbox">
+                <label for="requiid" >Requisition ID</label>
+                <input type="text" name="requiid" id="requiid">
+            </div>
+        </div>
+        <div class="inputbox">
+            <select name="post" id="post" class="form-select" required>
+                <option value=""></option>
+                {% for post in posts %}
+                <option value="{{post.id}}">{{post.name}}</option>
+                {% endfor %}
+              </select>
+            <label for="" class="text">Position</label>
+        </div>
+        <div class="col-1">
+            <div class="inputbox">
+                <label for="open" >No of Openings</label>
+                <input type="number" name="open" id="open">
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="inputbox">
+                <label for="minsal" >Minimum Salary</label>
+                <input type="number" name="minsal" id="minsal">
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="inputbox">
+                <label for="maxsal" >Maximum Salary</label>
+                <input type="number" name="maxsal" id="maxsal">
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="inputbox">
+                <label for="minexp" >Minimum Experiance</label>
+                <input type="number" name="minexp" id="minexp">
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="inputbox">
+                <label for="maxexp" >Maximum Experiance</label>
+                <input type="number" name="maxexp" id="maxexp">
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="inputbox">
+                <label for="qualify" >Qualification</label>
+                <input type="text" name="qualify" id="qualify">
+            </div>
+        </div>
+      
+        <div class="sub_btn">
+            <button type="submit">Save</button>
+            <a href="/HRadministrator/requisition"><button type="button">cancel</button></a>
+        </div>
+    </div>
+
+</form>
+
+{% endblock content %}

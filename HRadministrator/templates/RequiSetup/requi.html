@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .navigation ul li.req {
+        transform: translateX(30px);
+        background: var(--bg);
+    }
+    
+    .navigation ul li.req::before{
+        content: '';
+        position: absolute;
+        top: -28px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-bottom-right-radius: 20px;
+        box-shadow: 6px 5px 0 5px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.req::after{
+        content: '';
+        position: absolute;
+        bottom: -23px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-top-right-radius: 20px;
+        box-shadow: 6px -3px 0 3px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.req a .icon img{
+        color: #fff;
+        background: var(--cir);
+    }
+    
+    .navigation ul li.req a .icon img::before{
+        opacity: 0.5;
+    }
+    
+    .navigation ul li.req a .text{
+        color: #fff;
+    }
+</style>
+<a href="/HRadministrator/create-requisition" class="add"><img src="/media/icons/create.png" alt=""></a>
+<table id="view_page" style="--cir:#fa8c31;">
+    <tr class="table-dark">
+        <th>Requisition ID</th>
+        <th>Position Name</th>
+        <th>No Of Openings</th>
+        <th>Action</th>
+    </tr>
+    {% for requi in requis %} 
+    <tr>
+        <td>{{requi.requisition_id}}</td>
+        <td>{{requi.positionname}}</td>
+        <td>{{requi.no_of_openings}}</td>
+        <td>
+            <a href="{% url 'assign-requisition' requi.id %}" class="btn" style="margin-right: 2em;">Assign</a>
+            <a href="{% url 'assigned-candidated' requi.id %}" class="btn">Assigned</a>
+        </td>
+    </tr>
+    {% endfor %} 
+
+
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <div class="msg-popup" id="popup">
+                    <div class="msg">
+                        <img src="/media/icons/success.png" alt="Success">
+                        <h2>Success</h2>
+                        <p>{{message}}</p>
+                        <button type="button" onclick="closePopup()">close</button>
+                    </div>
+                </div>
+            {% endif %}
+            {% if message.tags == 'info' %}
+                <div class="msg-popup" id="popup">
+                    <div class="msg">
+                        <img src="/media/icons/delete.png" alt="Success">
+                        <h2>Delete</h2>
+                        <p>{{message}}</p>
+                        <button type="button" onclick="closePopup()">close</button>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+<script>
+    let popup = document.getElementById("popup");
+
+    function closePopup() {
+        popup.classList.add("close")
+    }
+</script>
+
+
+{% endblock content %}

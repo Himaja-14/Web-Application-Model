@@ -1,0 +1,97 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HR Admin HomePage</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+  <div class="navigation active">
+    <div class="menutoggle"></div>
+    <ul>
+      <li class="list dash">
+        <a href="/HRadministrator/dashboard" style="--cir:#f44336;">
+          <span class="icon"><img src="/media/icons/dashboard.png" alt=""></i></span>
+          <span class="text">Dashboard</span>
+        </a>
+      </li>
+      <li class="list org">
+        <a href="/HRadministrator/organization" style="--cir:#ffa117;">
+          <span class="icon"><img src="/media/icons/org.png" alt=""></span>
+          <span class="text">Organization</span>
+        </a>
+      </li>
+      <li class="list dept">
+        <a href="/HRadministrator/department" style="--cir:#39b5fd;;">
+          <span class="icon"><img src="/media/icons/department.png" alt=""></span>
+          <span class="text">Department</span>
+        </a>
+      </li>
+      <li class="list pos">
+        <a href="/HRadministrator/position" style="--cir:#3ff5f2;">
+          <span class="icon"><img src="/media/icons/job.png" alt=""></span>
+          <span class="text">Position</span>
+        </a>
+      </li>
+      <li class="list req">
+        <a href="/HRadministrator/requisition" style="--cir:#fa8c31;">
+          <span class="icon"><img src="/media/icons/requisition.png" alt=""></span>
+          <span class="text">Requisition</span>
+        </a>
+      </li>
+      <li class="list cand">
+        <a href="/HRadministrator/candidate" style="--cir:#f4f436;">
+          <span class="icon"><img src="/media/icons/emp.png" alt=""></span>
+          <span class="text">Candidate</span>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+  <div class="header">
+    <div class="action">
+      <div class="profile" onclick="profiletoggle()">
+        <img src="/media/images/Photo.png" alt="ProfilePic">
+      </div>
+      <div class="menu">
+        <h3>
+          <span>
+            {% for user in users %}
+            {{user.first_name}}
+            {% endfor %}
+          </span>
+          <br>
+          <span>Administrator</span>
+        </h3>
+        <ul>
+          <li><img src="/media/icons/profile.png" alt=""><a href="">My Profile</a></li>
+          <li><img src="/media/icons/inbox.png" alt=""><a href="">Inbox</a></li>
+          <li><img src="/media/icons/settings.png" alt=""><a href="">Settings</a></li>
+          <li><img src="/media/icons/logout.png" alt=""><a href="/HRadministrator/logout-user">Logout</a></li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+  <section class="sec">
+    {% block content %}
+
+
+    {% endblock content %}
+
+    
+  </section>
+  <script src="{% static '/js/script.js' %}"></script>
+  <script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+      event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}'
+    })
+  </script>
+</body>
+
+</html>

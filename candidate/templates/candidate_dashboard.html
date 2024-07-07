@@ -1,0 +1,29 @@
+{% extends "home.html" %}
+{% load static %}
+{% block content %}
+
+<div class="dashboard">
+    <div class="container">
+        <div class="card">
+            <div class="box">
+                <div class="content">
+                    <h3>Position</h3>
+                    <p>Total Positions available</p>
+                    <a href="#">{{post}}</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="box">
+                <div class="content">
+                    <h3>Requisitions</h3>
+                    <p>Total Requisitions available</p>
+                    <a href="#">{{requi}}</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% endblock content %}

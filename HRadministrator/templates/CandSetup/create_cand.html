@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<style>
+    .navigation ul li.cand {
+        transform: translateX(30px);
+        background: var(--bg);
+    }
+    
+    .navigation ul li.cand::before{
+        content: '';
+        position: absolute;
+        top: -28px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-bottom-right-radius: 20px;
+        box-shadow: 6px 5px 0 5px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.cand::after{
+        content: '';
+        position: absolute;
+        bottom: -23px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-top-right-radius: 20px;
+        box-shadow: 6px -3px 0 3px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.cand a .icon img{
+        color: #fff;
+        background: var(--cir);
+    }
+    
+    .navigation ul li.cand a .icon img::before{
+        opacity: 0.5;
+    }
+    
+    .navigation ul li.cand a .text{
+        color: #fff;
+    }
+</style>
+<form action="#" method="post" enctype='multipart/form-data'>
+    {% csrf_token %}
+    <div class="row-1">
+        <div class="col-1">
+            <div class="inputbox">
+                <label for="candid" >Candidate ID</label>
+                <input type="text" name="candid" id="candid">
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="inputbox">
+                <label for="fname" >First Name</label>
+                <input type="text" name="fname" id="fname">
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="inputbox">
+                <label for="lname" >Last Name</label>
+                <input type="text" name="lname" id="lname">
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="inputbox">
+                <label for="email" >Email</label>
+                <input type="text" name="email" id="email">
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="inputbox">
+                <label for="mobile" >Mobile Number</label>
+                <input type="number" name="mobile" id="mobile">
+            </div>
+        </div>
+
+        <div class="sub_btn">
+            <button type="submit">Save</button>
+            <a href="/HRadministrator/candidate"><button type="button">cancel</button></a>
+        </div>
+    </div>
+
+</form>
+
+{% endblock content %}

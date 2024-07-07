@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .navigation ul li.pos {
+        transform: translateX(30px);
+        background: var(--bg);
+    }
+    
+    .navigation ul li.pos::before{
+        content: '';
+        position: absolute;
+        top: -28px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-bottom-right-radius: 20px;
+        box-shadow: 6px 5px 0 5px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.pos::after{
+        content: '';
+        position: absolute;
+        bottom: -23px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-top-right-radius: 20px;
+        box-shadow: 6px -3px 0 3px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.pos a .icon img{
+        color: #fff;
+        background: var(--cir);
+    }
+    
+    .navigation ul li.pos a .icon img::before{
+        opacity: 0.5;
+    }
+    
+    .navigation ul li.pos a .text{
+        color: #fff;
+    }
+</style>
+<form action="#" method="post" enctype='multipart/form-data'>
+    {% csrf_token %}
+    <div class="row-1">
+        <div class="col-1">
+            <div class="inputbox">
+                <label for="posname" >Position Name</label>
+                <input type="text" name="posname" id="posname">
+            </div>
+        </div>
+        <div class="inputbox">
+            <select name="orgname" id="orgname" class="form-select" required>
+                <option value=""></option>
+                {% for dept in depts %}
+                <option value="{{dept.id}}">{{dept.orgname}}</option>
+                {% endfor %}
+              </select>
+            <label for="" class="text">Organization</label>
+        </div>
+        <div class="inputbox">
+            <select name="deptname" id="deptname" class="form-select" required>
+                <option value=""></option>
+                {% for dept in depts %}
+                <option value="{{dept.id}}">{{dept.name}}</option>
+                {% endfor %}
+              </select>
+            <label for="" class="text">Department</label>
+        </div>
+        <div class="sub_btn">
+            <button type="submit">Save</button>
+            <a href="/HRadministrator/position"><button type="button">cancel</button></a>
+        </div>
+    </div>
+
+</form>
+
+{% endblock content %}

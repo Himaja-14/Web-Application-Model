@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .navigation ul li.dash {
+        transform: translateX(30px);
+        background: var(--bg);
+    }
+    
+    .navigation ul li.dash::before{
+        content: '';
+        position: absolute;
+        top: -28px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-bottom-right-radius: 20px;
+        box-shadow: 6px 5px 0 5px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.dash::after{
+        content: '';
+        position: absolute;
+        bottom: -23px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: transparent;
+        border-top-right-radius: 20px;
+        box-shadow: 6px -3px 0 3px var(--bg);
+        transform: scale(1);
+        transform-origin: bottom right;
+        transition: 0.5s;
+    }
+    
+    .navigation ul li.dash a .icon img{
+        color: #fff;
+        background: var(--cir);
+    }
+    
+    .navigation ul li.dash a .icon img::before{
+        opacity: 0.5;
+    }
+    
+    .navigation ul li.dash a .text{
+        color: #fff;
+    }
+</style>
+<div class="dashboard">
+    <div class="container">
+        <div class="card">
+            <div class="box">
+                <div class="content">
+                    <h3>Position</h3>
+                    <p>Position reports dashboard</p>
+                    <a href="/HRadministrator/position">{{post_count}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+                <div class="box">
+                    <div class="content">
+                        <h3>Requisitions</h3>
+                        <p>Requisition reports dashboard</p>
+                        <a href="/HRadministrator/requisition">{{requi_count}}</a>
+                    </div>
+                </div>
+        </div>
+        <div class="card">
+            <div class="box">
+                <div class="content">
+                    <h3>Candidates</h3>
+                    <p>Candidates reports dashboard</p>
+                    <a href="/HRadministrator/candidate">{{cand_count}}</a>
+                </div>
+            </div>
+    </div>
+</div>
+
+{% endblock content %}

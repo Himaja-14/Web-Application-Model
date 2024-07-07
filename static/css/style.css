@@ -1,0 +1,806 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+:root{
+    --bg: #2f323f;
+}
+body{
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    background: var(--bg);
+}
+
+/* Popup Message CSS Start */
+.msg-popup{
+    position: absolute;
+    width: 20vw;
+    height: 30vh;
+    background: #fff;
+    border-radius: 10px;
+    position: absolute;
+    margin-top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #333;
+    border: 2px solid black;
+}
+
+
+.msg-popup img{
+    height: 5em;
+    width: 5em;
+    margin-top: -2.5em;
+    border-radius: 50%;
+    border: 2px solid black;
+    background: #fff;
+    box-shadow: 0 2PX 5PX rgba(0, 0, 0, 0.2);
+}
+
+.msg-popup h2{
+    font-size: 2em;
+    font-weight: 700;
+    margin: 20px 0 10px;
+}
+
+.msg-popup p{
+    font-size: 1.15em;
+    font-weight: 700;
+}
+
+.msg-popup button{
+    padding: 8px 14px;
+    margin-top: 1em;
+    background-image: linear-gradient(to right, #11fef2, #15e18c);
+    border-radius: 10px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.1s;
+}
+.msg-popup button:hover{
+    letter-spacing: 0.5em;
+    opacity: 0.9;
+}
+.msg-popup.close{
+    visibility: hidden;
+}
+/* Popup Message CSS End */
+
+/* Navigation bar CSS Start */
+
+.navigation{
+    position: fixed;
+    inset: 40px 0 40px 20px;
+    background: #fff;
+    width: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    top: 1em;
+    border-radius: 10px;
+}
+.navigation.active{
+    width: 15em;
+}
+.menutoggle{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    padding: 0 23px;
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+}
+.menutoggle::before{
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    background: #333;
+    transform: translateY(-8px);
+    transition: 0.5s;
+    
+}
+.navigation.active .menutoggle::before{
+    transform: translateY(0) rotate(45deg);
+}
+.menutoggle::after{
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    background: #333;
+    transform: translateY(8px);
+    box-shadow: 0 -8px 0 #333;
+    transition: 0.5s;
+    
+}
+.navigation.active .menutoggle::after{
+    transform: translateY(0) rotate(-45deg);
+    box-shadow: 0 0 0 #333;
+}
+.navigation ul{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.navigation ul li{
+    list-style: none;
+    position: relative;
+    width: 88%;
+    height: 6em;
+    border-radius: 12px;
+    border: 8px solid transparent;
+    
+}
+.navigation ul li.active{
+    transform: translateX(30px);
+    background: var(--bg);
+}
+.navigation ul li::before{
+    content: '';
+    position: absolute;
+    top: -28px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-bottom-right-radius: 20px;
+    box-shadow: 6px 5px 0 5px var(--bg);
+    transform: scale(0);
+    transform-origin: bottom right;
+    
+}
+.navigation ul li.active::before{
+    right: -8px;
+    transform: scale(1);
+    background: transparent;
+}
+.navigation ul li::after{
+    content: '';
+    position: absolute;
+    bottom: -23px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-top-right-radius: 20px;
+    box-shadow: 6px -3px 0 3px var(--bg);
+    transform: scale(0);
+    transform-origin: bottom right;
+    
+}
+.navigation ul li.active::after{
+    right: -8px;
+    transform: scale(1);
+    background: transparent;
+}
+.navigation ul li a{
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    z-index: 1000;
+}
+.navigation ul li a .icon img{
+    position: relative;
+    display: block;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 1.75em;
+    line-height: 60px;
+    border: 6px solid transparent;
+    transition: 0.5s;
+}
+.navigation ul li.active a .icon img{
+    color: #fff;
+    background: var(--cir);
+}
+.navigation ul li a .icon img::before{
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--cir);
+    filter: blur(8px);
+    opacity: 0;
+    transition: 0.5s;
+}
+.navigation ul li.active a .icon img::before{
+    opacity: 0.5;
+}
+.navigation ul li a .icon img::after{
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: -60px;
+    width: 15px;
+    height: 15px;
+    background: var(--cir);
+    border: 8px solid var(--bg);
+    border-radius: 50%;
+}
+.navigation ul li a .text{
+    position: relative;
+    padding: 0 15px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.5s;
+    font-size: 1.15em;
+}
+.navigation.active ul li a .text{
+    visibility: visible;
+    opacity: 1;
+}
+.navigation ul li.active a .text{
+    color: #fff;
+}
+
+/* Header CSS Start */
+.header{
+    position: absolute;
+    width: calc(100% - 6em);
+    height: 50px;
+    background: #fff;
+    margin-left: 6em;
+    margin-top: 1em;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.navigation.active ~ .header{
+    margin-left: 17em;
+    width: calc(100% - 17em);
+}
+.action{
+    position: relative;
+    float: right;
+    top: 6px;
+    right: 20px;
+}
+
+.action .profile{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.action .profile img{
+    position: absolute;
+    top: 0px;
+    left: 0.5px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.action .menu{
+    position: absolute;
+    top: 120px;
+    right: -19px;
+    padding: 10px 20px;
+    background: #fff;
+    width: 200px;
+    box-sizing: 0 5px 25px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    transition: 0.5s;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.action .menu.active{
+    top: 54px;
+    visibility: visible;
+    opacity: 1;
+}
+
+.action .menu::before{
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: 28px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    transform: rotate(45deg);
+}
+
+.action .menu h3{
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    padding: 20px 0;
+    font-weight: 500;
+    font-size: 18px;
+    color: #333;
+    line-height: 1.2em;
+}
+
+.action .menu h3 span{
+    font-size: 14px;
+    color: #666;
+    font-weight: 400;
+}
+
+.action .menu ul li{
+    list-style: none;
+    padding: 10px 0;
+    border-top: 1px solid rgba(0, 0, 0, .05);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.action .menu ul li img{
+    max-width: 20px;
+    margin-right: 10px;
+    opacity: 0.5;
+    transition: 0.5s;
+}
+
+.action .menu ul li:hover img{
+    opacity: 1;
+}
+
+.action .menu ul li a{
+    display: inline-block;
+    text-decoration: none;
+    color: #888;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+.action .menu ul li:hover a{
+    color: #ff5d94;
+}
+/* Header CSS End */
+
+/* Section CSS Start */
+.sec{
+    position: absolute;
+    top: 5em;
+    left: 6em;
+    width: calc(100% - 6em);
+    transition: 0.5s;
+}
+
+.navigation.active ~ .sec{
+    left: 17em;
+    width: calc(100% - 17em);
+}
+.sec.active{
+    width: 90.5%;
+    left: 150px;
+}
+.sec.zind{
+    z-index: -1;
+}
+#view_page{
+    position: absolute;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5em;
+}
+#view_page td, #view_page th{
+    padding: 10px 30px 0 10px;
+}
+#view_page tr:nth-child(even){
+    background-color: #f2efef;
+    text-align: center;
+}
+#view_page tr:nth-child(odd){
+    background-color: #d2cdcd;
+    text-align: center;
+    
+}
+#view_page tr:hover{
+    background-color: rgb(90, 90, 90);
+    cursor: pointer;
+    color: #fff;
+}
+#view_page tr th{
+    background-color: var(--cir);
+}
+#view_page tr:hover th{
+    color: #000;
+}
+#view_page tr td a{
+    text-decoration: none;
+    color: var(--cir);
+    margin-left: -10px;
+}
+#view_page tr td button{
+    margin-right: -10px;
+    margin-top: -25px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    padding: 3px;
+    border: none;
+    background: none;
+    color: var(--cir);
+    margin-left: -2px;
+    cursor: pointer;
+}
+.add{
+    position: absolute;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    margin-top: 2.4em;
+    margin-left: 97%;
+}
+.add img{
+    height: 35px;
+    width: 30px;
+}
+
+.row-1 .col-2{
+    position: absolute;
+    margin-top: -32.2em;
+    margin-left: 30em;
+}
+.row-1 .col-3{
+    position: absolute;
+    margin-top: -32.2em;
+    margin-left: 60em;
+}
+.inputbox{
+    position: relative;
+    width: 300px;
+    margin-top: 3em;
+    margin-left: 3em;
+    margin-bottom: 40px;
+}
+
+.inputbox input{
+    position: relative;
+    width: 100%;
+    padding: 10px 0;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #999;
+    outline: none;
+    color: #fff;
+    font-size: 1em;
+    letter-spacing: 0.15em;
+}
+
+.inputbox select{
+    position: relative;
+    width: 100%;
+    padding: 10px 0;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #999;
+    outline: none;
+    color: #fff;
+    font-size: 1em;
+    letter-spacing: 0.15em; 
+}
+
+.inputbox select option{
+    color: #000;
+}
+
+.inputbox label{
+    position: absolute;
+    left: 0;
+    padding: 10px 0;
+    bottom: 2em;
+    pointer-events: none;
+    color: #fff;
+    text-transform: uppercase;
+    display: inline-flex;
+    letter-spacing: 0.05em;
+    transition: 0.2s ease-in-out;
+}
+
+.inputbox input:required::before{
+    content: '*';
+    color: red;
+}
+
+.sub_btn{
+    position: absolute;
+    margin-top: 10em;
+    margin-left: 3em;
+}
+
+.sub_btn button{
+    border: none;
+    border-radius: 10px;
+    padding: 2px 10px;
+    font-size: 1.15em;
+    margin-right: 2em;
+    background: linear-gradient(to right, #11fef2, #1596e1)
+}
+
+/* CSS for Dashboard */
+
+.dashboard .container{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    width: 180vh;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    z-index: 10;
+}
+
+.dashboard .container .card{
+    position: relative;
+    width: 280px;
+    height: 380px;
+    box-shadow: inset 5px 5px 5px rgba(0, 0, 0, .05),
+                inset -5px -5px 5px rgba(255, 255, 255, .5),
+                5px 5px 5px rgba(0, 0, 0, .05),
+                -5px -5px 5px rgba(255, 255, 255, .5);
+    margin: 30px;
+}
+
+.dashboard .container .card .box{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    background: #ebf5fc;
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.dashboard .container .card:hover .box{
+    transform: translateY(-50px);
+    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(45deg, #be67e6, #39b5fd);
+}
+
+.dashboard .container .card .box .content{
+    padding: 20px;
+    text-align: center;
+}
+
+.dashboard .container .card .box .content h3{
+    font-size: 1.5em;
+    color: #777;
+    z-index: 1;
+    transition: 0.5s;
+}
+
+.dashboard .container .card:hover .box .content h3,
+.dashboard .container .card:hover .box .content p{
+    color: #fff;
+}
+
+.dashboard .container .card .box .content p{
+    font-size: 1em;
+    font-weight: 300;
+    color: #777;
+    z-index: 1;
+    transition: 0.5s;
+}
+
+.dashboard .container .card .box .content a{
+    position: relative;
+    display: inline-block;
+    padding: 8px 20px;
+    background: #39b5fd;
+    margin-top: 15px;
+    border-radius: 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 400;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
+}
+
+.dashboard .container .card:hover .box .content a{
+    background: #ff568f;
+}
+
+.dashboard .container .card:hover .box .content a:hover{
+    background: #39b5fd;
+    color: #333;
+    font-weight: 600;
+}
+
+
+
+/* Candaite Login */
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10%;
+}
+
+header li, a, button{
+    font-weight: 500;
+    font-size: 16px;
+    color: #edf0f1;
+    text-decoration: none;
+    list-style: none;
+}
+
+header .logo{
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+}
+header span a{
+    color: #edf0f1;
+}
+
+header span a:hover{
+    color: #0088a9;
+}
+
+header ul li{
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+header ul li a{
+    transition: all 0.3s ease 0s;
+}
+
+header ul li a:hover{
+    color: #0088a9;
+}
+
+header button{
+    padding: 9px 25px;
+    background-color: rgba(0, 136, 169, 1);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+header button:hover{
+    background-color: rgba(0, 136, 169, 0.8);
+}
+
+/* Candidate section */
+
+.cand-sec .dashboard{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10em;
+    margin-top: 2em;
+}
+
+/* candidate Dashboard */
+
+.profile .container{
+    position: absolute;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    width: 180vh;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    z-index: 10;
+}
+
+.profile .container .card{
+    position: relative;
+    width: 280px;
+    height: 380px;
+    box-shadow: inset 5px 5px 5px rgba(0, 0, 0, .05),
+                inset -5px -5px 5px rgba(255, 255, 255, .5),
+                5px 5px 5px rgba(0, 0, 0, .05),
+                -5px -5px 5px rgba(255, 255, 255, .5);
+    margin-left: 10em;
+    margin-top: 2em;
+}
+
+.profile .container .card .box{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    background: #ebf5fc;
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.profile .container .card:hover .box{
+    transform: translateY(-50px);
+    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(45deg, #be67e6, #39b5fd);
+}
+
+.profile .container .card .box .content{
+    padding: 20px;
+    text-align: center;
+}
+
+.profile .container .card .box .content h3{
+    font-size: 1.5em;
+    color: #777;
+    z-index: 1;
+    transition: 0.5s;
+    margin-top: -7em;
+}
+
+.profile .container .card:hover .box .content h3,
+.profile .container .card:hover .box .content p{
+    color: #fff;
+}
+
+.profile .container .card .box .content p{
+    font-size: 1em;
+    font-weight: 700;
+    color: #777;
+    z-index: 1;
+    transition: 0.5s;
+    margin-left: -7em;
+    margin-top: 1em;
+}
+
+.profile .container .card .box .content a{
+    position: relative;
+    display: inline-block;
+    padding: 8px 20px;
+    background: #39b5fd;
+    margin-top: 15px;
+    border-radius: 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 400;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
+}
+
+.profile .container .card:hover .box .content a{
+    background: #ff568f;
+}
+
+.profile .container .card:hover .box .content a:hover{
+    background: #39b5fd;
+    color: #333;
+    font-weight: 600;
+}
