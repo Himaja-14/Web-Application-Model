@@ -52,7 +52,7 @@ def homepage(request):
 @login_required(login_url="/")
 def org_setup(request):
     org = organization.objects.all()
-    return render(request, 'Orgsetup/org.html', {'orgs':org})
+    return render(request, 'OrgSetup/org.html', {'orgs':org})
 
 @login_required(login_url="/")
 def create_org(request):
@@ -61,7 +61,7 @@ def create_org(request):
         org = organization.objects.create(name=name)
         org.save()
         return redirect('/HRadministrator/organization')
-    return render(request, 'Orgsetup/create_org.html')
+    return render(request, 'OrgSetup/create_org.html')
 
 @login_required(login_url="/")
 def dept_setup(request):
