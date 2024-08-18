@@ -56,6 +56,7 @@
         <th>Candidate Name</th>
         <th>Email</th>
         <th>Mobile</th>
+        <th>Actions</th>
     </tr>
     {% for cand in cands %} 
     <tr>
@@ -63,6 +64,16 @@
         <td>{{cand.first_name}} {{cand.last_name}}</td>
         <td>{{cand.email}}</td>
         <td>{{cand.mobile}}</td>
+        <td>
+            <form action="{% url 'DeleteCandidate' cand.id %}" method="post">
+                {% csrf_token %}
+                <button><i class="fa-solid fa-trash"></i></button>
+            </form>
+            <form action="{% url 'SendEmail' cand.id %}" method="post">
+                {% csrf_token %}
+                <button><i class="fa-solid fa-envelope"></i></button>
+            </form>
+        </td>
     </tr>
     {% endfor %} 
 

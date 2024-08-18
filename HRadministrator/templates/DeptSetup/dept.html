@@ -55,12 +55,19 @@
         <th>Dept ID</th>
         <th>Department</th>
         <th>Organization</th>
+        <th>Action</th>
     </tr>
     {% for dept in depts %} 
     <tr>
         <td>{{dept.id}}</td>
         <td>{{dept.name}}</td>
         <td>{{dept.orgname}}</td>
+        <td>
+            <form action="{% url 'DeleteDept' dept.id %}" method="post">
+                {% csrf_token %}
+                <button><i class="fa-solid fa-trash"></i></button>
+            </form>
+        </td>
     </tr>
     {% endfor %} 
 

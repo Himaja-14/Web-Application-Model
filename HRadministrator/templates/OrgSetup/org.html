@@ -54,11 +54,18 @@
     <tr class="table-dark">
         <th>Org ID</th>
         <th>Organization</th>
+        <th>Action</th>
     </tr>
     {% for org in orgs %} 
     <tr>
         <td>{{org.id}}</td>
         <td>{{org.name}}</td>
+        <td>
+            <form action="{% url 'DeleteOrg' org.id %}" method="post">
+                {% csrf_token %}
+                <button><i class="fa-solid fa-trash"></i></button>
+            </form>
+        </td> 
     </tr>
     {% endfor %} 
 

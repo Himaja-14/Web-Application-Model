@@ -4,17 +4,19 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import auth, User
 from django.contrib.auth.hashers import make_password
-
-from HRadministrator.models import *
 from django.core.mail import EmailMessage
+from django.template.loader import get_template
 from django.conf import settings
+from HRadministrator.models import *
+from django.db.models import Max
+
 
 # Create your views here.
 
 def login_user(request):
     if request.method == "POST":
-        username = request.POST.get('Username')
-        password = request.POST.get('Password')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             if user.is_superuser == True:
@@ -26,6 +28,39 @@ def login_user(request):
         else:
             messages.error(request, 'please check your username and password')
     return render(request, 'login.html')
+
+def signup_user(request):
+    candid = 10001 if candidate.objects.count() == 0 else candidate.objects.aggregate(max=Max('cand_id'))["max"]+1
+    if request.method == 'POST':
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        cnfpswd = request.POST.get('cnfpswd')
+        if password == cnfpswd:
+            pswd = make_password(password)
+            user = User.objects.create(username=candid, email=email, password=pswd)
+            user.save()
+            cand = candidate.objects.create(cand_id = candid,first_name=fname, last_name=lname, email = email)
+            cand.save()
+            receiver_email = email
+        email_sub = f"Welcome Onboard {fname + lname}"
+        email_body = f"Your candiducture has been created succesfully, please login with your credentials \n username: {candid} \n passowrd:{password}"
+        email_msg = EmailMessage(email_sub,
+                                email_body, 
+                                settings.APPLICATION_EMAIL,
+                                [receiver_email], 
+                                reply_to=[settings.APPLICATION_EMAIL]
+                                )
+        email_msg.content_subtype = 'html'
+        email_msg.send(fail_silently=False)
+        if email_msg.send:
+                messages.success(request, 'Email Sent Successfully.')
+                return redirect('/')
+        else:
+            messages.error(request, 'Email Not Sent Please Check the Config')
+            return redirect('/signup')
+    return render (request, 'register.html', {'candid':candid})
 
 
 @login_required(login_url="/")
@@ -65,6 +100,13 @@ def create_org(request):
     return render(request, 'OrgSetup/create_org.html')
 
 @login_required(login_url="/")
+def delorg(request, id):
+    if request.method == 'POST':
+        delorg = organization.objects.get(pk=id)
+        delorg.delete()
+        return redirect('/HRadministrator/organization')
+
+@login_required(login_url="/")
 def dept_setup(request):
     depts = department.objects.all()
     return render(request, 'DeptSetup/dept.html', {'depts':depts})
@@ -79,6 +121,13 @@ def create_dept(request):
         dept.save()
         return redirect('/HRadministrator/department')
     return render(request, 'DeptSetup/create_dept.html', {'orgs':orgs})
+
+@login_required(login_url="/")
+def deldept(request, id):
+    if request.method == 'POST':
+        deldept = department.objects.get(pk=id)
+        deldept.delete()
+        return redirect('/HRadministrator/department')
 
 @login_required(login_url="/")
 def Pos_setup(request):
@@ -126,19 +175,19 @@ def cand_setup(request):
 
 @login_required(login_url="/")
 def create_cand(request):
+    candid = 10001 if candidate.objects.count() == 0 else candidate.objects.aggregate(max=Max('cand_id'))["max"]+1
     if request.method == 'POST':
-        cand_id = request.POST.get("candid")
         first_name = request.POST.get("fname")
         last_name = request.POST.get("lname")
         email = request.POST.get("email")
         mobile = request.POST.get("mobile")
-        paswd = make_password(cand_id)
-        cand = candidate.objects.create(cand_id=cand_id, first_name=first_name, last_name=last_name, email=email, mobile=mobile)
+        paswd = make_password(candid)
+        cand = candidate.objects.create(cand_id=candid, first_name=first_name, last_name=last_name, email=email, mobile=mobile)
         cand.save()
-        user = User.objects.create(username = cand_id, first_name = first_name, last_name=last_name, email=email, password = paswd)
+        user = User.objects.create(username = candid, first_name = first_name, last_name=last_name, email=email, password = paswd)
         user.save()
         return redirect('/HRadministrator/candidate')
-    return render(request, 'CandSetup/create_cand.html')
+    return render(request, 'CandSetup/create_cand.html', {'candid':candid})
 
 @login_required(login_url="/")
 def send_email(request, id):
@@ -151,9 +200,9 @@ def send_email(request, id):
         email_sub = f"Welcome Onboard {username}"
         email_body = f"Your candiducture has been created succesfully, please login with your credentials \n username: {userid} \n passowrd:{userid}"
         email_msg = EmailMessage(email_sub,
-                                email_body,
+                                email_body, 
                                 settings.APPLICATION_EMAIL,
-                                [receiver_email],
+                                [receiver_email], 
                                 reply_to=[settings.APPLICATION_EMAIL]
                                 )
         email_msg.content_subtype = 'html'
@@ -165,6 +214,7 @@ def send_email(request, id):
             messages.error(request, 'Email Not Sent Please Check the Config')
             return redirect('/HRadministrator/candidate')
     return render(request, 'CandSetup/cand.html')
+    
 
 @login_required(login_url="/")
 def delcand(request, id):
@@ -175,7 +225,7 @@ def delcand(request, id):
         deluser = User.objects.get(username = candid)
         deluser.delete()
         return redirect('/HRadministrator/candidate')
-
+    
 @login_required(login_url="/")
 def requi_cand(request, pk):
     requis = requisition.objects.get(pk=pk)

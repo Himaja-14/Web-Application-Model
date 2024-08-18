@@ -25,6 +25,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.login_user, name='login-user'),
+    path('signup', views.signup_user, name='signup-user'),
     path('HRadministrator/', include('HRadministrator.urls')),
     path('candidate/', include('candidate.urls')),
 
