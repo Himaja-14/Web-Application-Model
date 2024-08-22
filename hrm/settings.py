@@ -150,7 +150,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'himajasammeta18@gmail.com'
-EMAIL_HOST_PASSWORD = 'fbedmaekcujqewoi'
+EMAIL_HOST_PASSWORD = 'zfxtyzylgtadstpz'
 APPLICATION_EMAIL = 'Admin<himajasammeta18@gmail.com>'
 DEFAULT_FROM_EMAIL = 'Admin<himajasammeta18@gmail.com>'
 
