@@ -310,3 +310,63 @@ input[type="radio"]:checked + .card{
     background-color: rgb(22, 97, 22);
 }
 
+/* Popup Message CSS Start */
+.msg-popup{
+    position: absolute;
+    width: 20vw;
+    height: 30vh;
+    background: #fff;
+    border-radius: 10px;
+    position: absolute;
+    margin-top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #333;
+    border: 2px solid black;
+    z-index: 10;
+}
+
+
+.msg-popup img{
+    height: 5em;
+    width: 5em;
+    margin-top: -2.5em;
+    border-radius: 50%;
+    border: 2px solid black;
+    background: #fff;
+    box-shadow: 0 2PX 5PX rgba(0, 0, 0, 0.2);
+}
+
+.msg-popup h2{
+    font-size: 2em;
+    font-weight: 700;
+    margin: 20px 0 10px;
+}
+
+.msg-popup p{
+    font-size: 1.15em;
+    font-weight: 700;
+}
+
+.msg-popup button{
+    padding: 8px 14px;
+    margin-top: 1em;
+    background-image: linear-gradient(to right, #11fef2, #15e18c);
+    border-radius: 10px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.1s;
+}
+.msg-popup button:hover{
+    letter-spacing: 0.5em;
+    opacity: 0.9;
+}
+.msg-popup.close{
+    visibility: hidden;
+}
+/* Popup Message CSS End */
+

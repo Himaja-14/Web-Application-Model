@@ -35,5 +35,26 @@
         <p style="color: aliceblue;">Not an Admin?<a href="/">Candidate Login</a></p>
       </div>
     </form>
+  {% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'info' %}
+            <div class="msg-popup" id="popup">
+                <div class="msg">
+                    <img src="/media/icons/error.png" alt="Success">
+                    <h2>Wrong</h2>
+                    <p>{{message}}</p>
+                    <button type="button" onclick="closePopup()">close</button>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+  {% endif %}
+<script>
+  let popup = document.getElementById("popup");
+
+  function closePopup() {
+      popup.classList.add("close")
+  }
+</script>
   </body>
 </html>

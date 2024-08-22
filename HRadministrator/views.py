@@ -24,6 +24,7 @@ def login_user(request):
         if user is not None:
             if user.is_superuser == True:
                 messages.info(request, "If you are a admin login via admin")
+                return redirect('/cand-login')
             else:
                 login(request, user)
                 return redirect('/candidate/dashboard')
@@ -42,12 +43,14 @@ def admin_login(request):
                 return redirect('/HRadministrator/dashboard')
             else:
                 messages.info(request, 'If you are a Candidate please login Via Candidate')
+                return redirect('/admin-login')
         else:
             messages.error(request, 'please check your username and password')
     return render(request, 'adminlogin.html')
 
 def signup_user(request):
-    candid = 10001 if candidate.objects.count() == 0 else candidate.objects.aggregate(max=Max('cand_id'))["max"]+1
+    cand = 10001 if candidate.objects.count() == 0 else candidate.objects.aggregate(max=Max('cand_id'))["max"]
+    candid=int(cand)+1
     if request.method == 'POST':
         fname = request.POST.get('fname')
         lname = request.POST.get('lname')
