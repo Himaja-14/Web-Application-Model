@@ -13,7 +13,25 @@ from django.db.models import Max
 
 # Create your views here.
 
+def inital_page(request):
+    return render(request, 'initialpage.html')
+
 def login_user(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            if user.is_superuser == True:
+                messages.info(request, "If you are a admin login via admin")
+            else:
+                login(request, user)
+                return redirect('/candidate/dashboard')
+        else:
+            messages.error(request, 'please check your username and password')
+    return render(request, 'login.html')
+
+def admin_login(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -23,11 +41,10 @@ def login_user(request):
                 login(request, user)
                 return redirect('/HRadministrator/dashboard')
             else:
-                login(request, user)
-                return redirect('/candidate/dashboard')
+                messages.info(request, 'If you are a Candidate please login Via Candidate')
         else:
             messages.error(request, 'please check your username and password')
-    return render(request, 'login.html')
+    return render(request, 'adminlogin.html')
 
 def signup_user(request):
     candid = 10001 if candidate.objects.count() == 0 else candidate.objects.aggregate(max=Max('cand_id'))["max"]+1
